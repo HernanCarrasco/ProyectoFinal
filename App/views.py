@@ -14,7 +14,7 @@ def crear_blog(request):
 
     if request.method == "POST":
 
-        formulario_user = BlogForm(request.POST)
+        formulario_user = BlogForm(request.POST, request.FILES)
 
         if formulario_user.is_valid():
             info=formulario_user.cleaned_data

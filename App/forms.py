@@ -16,7 +16,7 @@ class BlogForm(forms.Form):
     autor = forms.CharField(max_length=100)
     fecha_pub = forms.CharField(max_length=50)
     categoria = forms.CharField(max_length=50)
-    img = forms.ImageField() ## Esto no se si va así, lo dejo mientras
+    img = forms.ImageField(label="Imagen") ## Esto no se si va así, lo dejo mientras
 
     def __str__(self):
         return self.titulo
