@@ -31,4 +31,4 @@ class Avatar(models.Model):
 class Comentario(models.Model):
     cuerpo = models.CharField(max_length=500)
     autor = models.CharField(max_length=100)
-    fecha_pub = models.CharField(max_length=50)
+    fecha_pub = models.CharField(max_length=50) #Se puede cambiar a Mensajes

@@ -8,8 +8,8 @@ def inicio(request):
     return render (request, "App/inicio.html")
     
 
-def ver_post(request, post_id):
-    post = Blog.objects.get(pk=post_id)
+def ver_post(request, id):
+    post = Blog.objects.get(id=id)
     return render(request, 'App/BlogPost.html', {'post': post})
 
 
@@ -46,11 +46,27 @@ def pages(request):
     blogs=Blog.objects.all() 
     return render(request, "App/pages.html", {'blogs':blogs})
 
+def eliminar_blog(request, blog_id):
+    blog=Blog.objects.get(id=blog_id)
+    blog.delete()
+
+    blogs=Blog.objects.all() 
+    return render(request, "App/pages.html", {'blogs':blogs})
+
+
 def publicacion(request):
     return render (request, "App/publicacion.html")
 
-def busqueda(request):
-    return render (request, "App/busqueda_tema.html")
+"""def busqueda(request):
+    return render (request, "App/busqueda_tema.html")"""
+
+def busqueda_titulo(request):
+    if request.GET['titulo']:
+        blogs=Blog.objects.filter(titulo__icontains=request.GET['titulo'])             
+        return render(request, "App/result_busqueda.html", {"blogs":blogs})
+    else:
+        return render(request, "App/result_busqueda.html", {'mensaje':"No se ingresó un titulo para la busqueda."})
+
 
 def usuario(request):
     if request.method == "POST":
