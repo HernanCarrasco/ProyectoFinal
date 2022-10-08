@@ -51,16 +51,16 @@ def editar_blog(request, id):
 
         if formulario_user.is_valid():
             info=formulario_user.cleaned_data
-            tit=info["titulo"]
-            subt=info["subtitulo"]
-            cuerpo=info["cuerpo"]
-            aut=info["autor"]
-            fecha=info["fecha_pub"]
-            cat=info["categoria"]
-            img=info["img"]
-            blog=Blog(titulo=tit, subtitulo=subt, cuerpo=cuerpo, autor=aut, fecha_pub=fecha, categoria=cat, img=img)
+            blog.titulo=info["titulo"]
+            blog.subtitulo=info["subtitulo"]
+            blog.cuerpo=info["cuerpo"]
+            blog.autor=info["autor"]
+            blog.fecha_pub=info["fecha_pub"]
+            blog.categoria=info["categoria"]
+            blog.img=info["img"]
             blog.save()
-            return render (request, "App/pages.html", {'mensaje': "Blog actualizado!"})
+            blogs=Blog.objects.all()
+            return render (request, "App/pages.html", {'mensaje': "Blog actualizado!", 'blogs':blogs})
         else:
             return render (request, "App/editar_blog.html", {"formulario":formulario_user, 'mensaje': "Error en los datos"}) 
     else:
