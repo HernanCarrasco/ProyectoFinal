@@ -1,0 +1,12 @@
+{% extends "App/padre.html" %}
+{% load static %}
+{% block Titulo %} Editar un Blog {% endblock %}
+{% block Descripcion %} Aqui se puede editar una publicacion {% endblock %}
+
+{% block contenido_pag %}
+<form action="{% url 'editar_blog' blog.id %}" method="POST" enctype="multipart/form-data"> {% csrf_token %} 
+    <table> {{ formulario.as_table }} </table>
+    <input type="submit" value="Enviar">
+</form>
+
+{% endblock %}

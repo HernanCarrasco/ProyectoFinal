@@ -3,6 +3,8 @@
 {% block Titulo %} Todos los Blogs {% endblock %}
 {% block Descripcion %} Aqui se pueden ver todos los posts hechos {% endblock %}
 
+
+{{ mensaje }}
 {% block contenido_pag %}
 
 {% if blogs %}
@@ -11,7 +13,10 @@
     {% for blog in blogs %}
     <div class="col-lg-6"> 
         <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="{{ blog.img.url }}" alt="..." /></a>
+            <figure class="mb-4"><img class="img-fluid rounded" src="{{ blog.img.url }}" style="object-fit:contain;
+                width:700px;
+                height:350px;
+                border: solid 1px #CCC" alt="..." /></figure>
             <div class="card-body">
                 <div class="small text-muted">{{ blog.fecha_pub }}</div>
                 <h2 class="card-title">{{ blog.titulo }}</h2>

@@ -33,21 +33,47 @@ def crear_blog(request):
             img=info["img"]
             blog=Blog(titulo=tit, subtitulo=subt, cuerpo=cuerpo, autor=aut, fecha_pub=fecha, categoria=cat, img=img)
             blog.save()
-            return render (request, "App/inicio.html", {'mensaje': "Blog publicado!"})
+            return render (request, "App/pages.html", {'mensaje': "Blog publicado!"})
         else:
             return render (request, "App/crear_blog.html", {"formulario":formulario_user, 'mensaje': "Error en los datos"}) 
     else:
         formulario_user=BlogForm()
         return render (request, "App/crear_blog.html", {"formulario":formulario_user})
+        
 
+def editar_blog(request, id):
+
+    blog = Blog.objects.get(id=id)
+
+    if request.method == "POST":
+
+        formulario_user = BlogForm(request.POST, request.FILES)
+
+        if formulario_user.is_valid():
+            info=formulario_user.cleaned_data
+            tit=info["titulo"]
+            subt=info["subtitulo"]
+            cuerpo=info["cuerpo"]
+            aut=info["autor"]
+            fecha=info["fecha_pub"]
+            cat=info["categoria"]
+            img=info["img"]
+            blog=Blog(titulo=tit, subtitulo=subt, cuerpo=cuerpo, autor=aut, fecha_pub=fecha, categoria=cat, img=img)
+            blog.save()
+            return render (request, "App/pages.html", {'mensaje': "Blog actualizado!"})
+        else:
+            return render (request, "App/editar_blog.html", {"formulario":formulario_user, 'mensaje': "Error en los datos"}) 
+    else:
+        formulario_user=BlogForm(initial={'titulo':blog.titulo, 'subtitulo':blog.subtitulo, 'cuerpo':blog.cuerpo, 'autor':blog.autor, 'fecha_pub':blog.fecha_pub, 'categoria':blog.categoria, 'img':blog.img})
+        return render (request, "App/editar_blog.html", {"formulario":formulario_user, 'blog':blog})
 
 
 def pages(request):
     blogs=Blog.objects.all() 
     return render(request, "App/pages.html", {'blogs':blogs})
 
-def eliminar_blog(request, blog_id):
-    blog=Blog.objects.get(id=blog_id)
+def eliminar_blog(request, id):
+    blog=Blog.objects.get(id=id)
     blog.delete()
 
     blogs=Blog.objects.all() 
