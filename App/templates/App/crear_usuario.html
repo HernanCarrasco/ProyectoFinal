@@ -1,0 +1,55 @@
+{% extends "App/padre.html" %}
+{% load static %}
+{% block Titulo %} Crear un usuario {% endblock %}
+{% block Descripcion %} Aqui se puede usuario  {% endblock %}
+
+{% block contenido_pag %}
+<style>
+    .parrafo{
+        z-index: 1;
+        height: 155px;
+        width: 540px;
+        padding: 20px 20px;
+        font-size: 15px;
+        line-height: 1.5;
+        background-color:white;
+        box-shadow: 1px 5px 25px;
+        color: black;
+        border-radius: 5px;
+        }
+    </style>
+    <center>
+        <div class="parrafo">
+            <form action="{% url 'crear_usuario' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %} 
+                <table> {{ formulario.as_table }} </table>
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+    </center>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+        </div>
+    </footer>
+
+    
+
+
+{% endblock %}

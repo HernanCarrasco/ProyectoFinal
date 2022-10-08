@@ -1,8 +1,7 @@
 {% extends "App/padre.html" %}
 {% load static %}
 {% block Titulo %} Crear un Blog {% endblock %}
-
-
+{% block Descripcion %} Aqui se puede crear un post nuevo {% endblock %}
 
 {% block contenido_pag %}
 <form action="{% url 'crear_blog' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %} 

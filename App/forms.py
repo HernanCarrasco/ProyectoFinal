@@ -11,7 +11,7 @@ class UsuarioForm(forms.Form):
 
 class BlogForm(forms.Form):
     titulo = forms.CharField(max_length=100)
-    subtitulo = forms.CharField(max_length=50)
+    subtitulo = forms.CharField(max_length=300)
     cuerpo = forms.CharField(max_length=5000)
     autor = forms.CharField(max_length=100)
     fecha_pub = forms.CharField(max_length=50)

@@ -13,7 +13,7 @@ class Usuario(models.Model):
 
 class Blog(models.Model):
     titulo = models.CharField(max_length=100)
-    subtitulo = models.CharField(max_length=50)
+    subtitulo = models.CharField(max_length=300)
     cuerpo = models.CharField(max_length=5000)
     autor = models.CharField(max_length=100)
     fecha_pub = models.CharField(max_length=50)
