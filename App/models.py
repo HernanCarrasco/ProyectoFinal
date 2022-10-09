@@ -23,6 +23,7 @@ class Blog(models.Model):
     def __str__(self):
         return self.titulo
 
+
 class Avatar(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='avatares', null=True, blank=True) ## Esto no se si va así, lo dejo mientras
@@ -30,5 +31,13 @@ class Avatar(models.Model):
 
 class Comentario(models.Model):
     cuerpo = models.CharField(max_length=500)
-    autor = models.CharField(max_length=100)
-    fecha_pub = models.CharField(max_length=50) #Se puede cambiar a Mensajes
+    avatar = models.ForeignKey(Avatar, on_delete=models.CASCADE) #Falta probar y mejorar esto, no se si funciona
+    autor = models.ForeignKey(Usuario, on_delete=models.CASCADE) #Falta probar y mejorar esto, no se si funciona
+    fecha_pub = models.CharField(max_length=50)
+
+
+class Mensaje(models.Model):
+    cuerpo = models.CharField(max_length=500)
+    avatar = models.ForeignKey(Avatar, on_delete=models.CASCADE) #Falta probar y mejorar esto, no se si funciona
+    autor = models.ForeignKey(Usuario, on_delete=models.CASCADE) #Falta probar y mejorar esto, no se si funciona
+    fecha_pub = models.CharField(max_length=50)

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
 from App.forms import * 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 
 def inicio(request):
@@ -113,8 +114,23 @@ def usuario(request):
             formulario_user=UsuarioForm()
             return render (request, "App/crear_usuario.html", {"formulario":formulario_user})
 
+
+### VBC ###
+
+class UsuarioList(ListView):
+    model = Usuario
+    template_name = "App/usuarios.html"
+
+class UsuarioDetalle(DetailView):
+    model = Usuario
+    template_name = "App/Usuario.html"
+
+
+
 '''
 nombre_usuario = forms.CharField(max_length=100)
     contraseña = forms.CharField(max_length=50)
     email = forms.EmailField(max_length = 254)
 '''
+
+

@@ -12,5 +12,8 @@ urlpatterns = [
         path("busqueda_titulo/", busqueda_titulo , name="busqueda_titulo"),
         path("crear_usuario/", usuario , name="crear_usuario"),
         path("eliminar_blog/<id>", eliminar_blog , name="eliminar_blog"),
+#cvb
+        path("Usuarios/list/", UsuarioList.as_view(), name="usuario_lista"),
+        path("Usuario/<pk>", UsuarioDetalle.as_view(), name="ver_usuario"),
 
 ]
