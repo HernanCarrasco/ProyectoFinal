@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from .models import *
 from App.forms import * 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -54,9 +56,7 @@ def ver_post(request, id):
     return render(request, 'App/BlogPost.html', {'post': post})
 
 
-"""def post(request):
-    return render (request, "App/BlogPost.html")"""
-
+@login_required
 def crear_blog(request):
 
     if request.method == "POST":
@@ -81,7 +81,7 @@ def crear_blog(request):
         formulario_user=BlogForm()
         return render (request, "App/crear_blog.html", {"formulario":formulario_user})
         
-
+@login_required
 def editar_blog(request, id):
 
     blog = Blog.objects.get(id=id)
@@ -113,16 +113,14 @@ def pages(request):
     blogs=Blog.objects.all() 
     return render(request, "App/pages.html", {'blogs':blogs})
 
+
+@login_required
 def eliminar_blog(request, id):
     blog=Blog.objects.get(id=id)
     blog.delete()
 
     blogs=Blog.objects.all() 
     return render(request, "App/pages.html", {'blogs':blogs})
-
-
-def publicacion(request):
-    return render (request, "App/publicacion.html")
 
 
 
@@ -133,16 +131,20 @@ def busqueda_titulo(request):
     else:
         return render(request, "App/result_busqueda.html", {'mensaje':"No se ingresó un titulo para la busqueda."})
 
+def ver_usuario(request, id):
+    user=User.objects.get(id=id)
+    return render(request, "App/Usuario.html", {'user':user})
 
 
-"""### VBC ###
 
-class UsuarioList(ListView):
-    model = Usuario
+### VBC ###
+
+class UsuarioList(LoginRequiredMixin, ListView):
+    model = User
     template_name = "App/usuarios.html"
 
-class UsuarioDetalle(DetailView):
-    model = Usuario
+"""class UsuarioDetalle(DetailView):
+    model = User
     template_name = "App/Usuario.html"
 
 class UsuarioCreacion(CreateView):

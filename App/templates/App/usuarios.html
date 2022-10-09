@@ -19,7 +19,7 @@
                 height:150px;
                 border: solid 1px #CCC" alt="..." /></figure>
             <div class="card-body">
-                <h2 class="card-title">{{ usuario.nombre_usuario }}</h2>
+                <h2 class="card-title">{{ usuario.username }}</h2>
                 <p class="card-text">{{ usuario.email }}</p>
                 <a class="btn btn-primary" href="{% url 'ver_usuario' usuario.id %}">Ver Usuario →</a>
             </div>
