@@ -6,7 +6,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.models import User
+
+
 
 
 def inicio(request):
@@ -22,7 +23,7 @@ def login_request(request):
             usuario=authenticate(username=usu, password=clave)
             if usuario is not None:
                 login(request, usuario)
-                return render(request, "App/inicio.html", {"mensaje": f"Sesion iniciada como {usuario}"})
+                return render(request, "App/inicio.html", {"mensaje_login": f"Sesion iniciada como {usuario}"})
             else:
                 return render(request, "App/login.html", {"formulario":form, "mensaje":"Usuario o Contraseña no existen"})
         else:
@@ -30,6 +31,21 @@ def login_request(request):
     else:
         form=AuthenticationForm()
         return render(request, "App/login.html", {"formulario":form})
+
+
+def register(request):
+    if request.method=="POST":
+        form=UsuarioRegisterForm(request.POST)
+        if form.is_valid():
+            username=form.cleaned_data.get('username')
+            form.save()
+            return render(request, "App/inicio.html", {"mensaje":f"Usuario {username} creado correctamente"})
+        else:
+            return render(request, "App/register.html", {"formulario":form, "mensaje":"Formulario Invalido"})
+
+    else:
+        form=UsuarioRegisterForm()
+        return render(request, "App/register.html", {"formulario":form})
 
     
 
@@ -119,7 +135,7 @@ def busqueda_titulo(request):
 
 
 
-### VBC ###
+"""### VBC ###
 
 class UsuarioList(ListView):
     model = Usuario
@@ -141,16 +157,5 @@ class UsuarioUpdate(UpdateView):
 
 class UsuarioDelete(DeleteView):
     model = Usuario
-    success_url = reverse_lazy("usuario_lista")
-
-
-
-
-
-'''
-nombre_usuario = forms.CharField(max_length=100)
-    contraseña = forms.CharField(max_length=50)
-    email = forms.EmailField(max_length = 254)
-'''
-
+    success_url = reverse_lazy("usuario_lista")"""
 

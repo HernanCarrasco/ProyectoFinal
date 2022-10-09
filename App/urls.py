@@ -10,12 +10,13 @@ urlpatterns = [
         path("principal/", publicacion, name="principal"),
         path("busqueda_titulo/", busqueda_titulo , name="busqueda_titulo"),
         path("eliminar_blog/<id>", eliminar_blog , name="eliminar_blog"),
-#cvb
-        path("Usuarios/list/", UsuarioList.as_view(), name="usuario_lista"),
-        path("Usuario/<pk>", UsuarioDetalle.as_view(), name="ver_usuario"),
-        path("Usuario/nuevo/", UsuarioCreacion.as_view(), name="crear_usuario"),
-        path("Usuario/editar/<pk>", UsuarioUpdate.as_view(), name="editar_usuario"),
-        path("Usuario/eliminar/<pk>", UsuarioDelete.as_view(), name="eliminar_usuario"),
 # Login, Register, Logout
         path("login", login_request, name="login"),
+        path("register", register, name="register"),
 ]
+
+"""cvb
+        path("Usuarios/list/", UsuarioList.as_view(), name="usuario_lista"),
+        path("Usuario/<pk>", UsuarioDetalle.as_view(), name="ver_usuario"),
+        path("Usuario/editar/<pk>", UsuarioUpdate.as_view(), name="editar_usuario"),
+        path("Usuario/eliminar/<pk>", UsuarioDelete.as_view(), name="eliminar_usuario"),"""
