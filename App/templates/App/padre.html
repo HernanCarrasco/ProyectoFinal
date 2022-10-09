@@ -61,10 +61,14 @@
                         <div class="card-header">Buscar</div>
                         <div class="card-body">
                             <div class="input-group">
+                                <div style="text-align: left">
                                 <form action="{% url 'busqueda_titulo' %}" method="GET">
                                     <input type="text" name="titulo" id="titulo" class="form-control" type="text" placeholder="Introducir busqueda..." aria-label="Introducir busqueda..." aria-describedby="button-search">
+                                </div>
+                                <div style="text-align: right">
                                     <input  class="btn btn-primary" type="submit" value="Buscar" >
                                 </form>
+                                </div>
                             </div>
                         </div>
                     </div>
