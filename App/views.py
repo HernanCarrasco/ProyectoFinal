@@ -4,10 +4,33 @@ from .models import *
 from App.forms import * 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 
 
 def inicio(request):
     return render (request, "App/inicio.html")
+
+def login_request(request):
+    if request.method == "POST":
+        form=AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            usu=request.POST["username"]
+            clave=request.POST["password"]
+
+            usuario=authenticate(username=usu, password=clave)
+            if usuario is not None:
+                login(request, usuario)
+                return render(request, "App/inicio.html", {"mensaje": f"Sesion iniciada como {usuario}"})
+            else:
+                return render(request, "App/login.html", {"formulario":form, "mensaje":"Usuario o Contraseña no existen"})
+        else:
+            return render(request, "App/login.html", {"formulario":form, "mensaje":"Usuario o Contraseña Incorrectos"})
+    else:
+        form=AuthenticationForm()
+        return render(request, "App/login.html", {"formulario":form})
+
     
 
 def ver_post(request, id):

@@ -16,4 +16,6 @@ urlpatterns = [
         path("Usuario/nuevo/", UsuarioCreacion.as_view(), name="crear_usuario"),
         path("Usuario/editar/<pk>", UsuarioUpdate.as_view(), name="editar_usuario"),
         path("Usuario/eliminar/<pk>", UsuarioDelete.as_view(), name="eliminar_usuario"),
+# Login, Register, Logout
+        path("login", login_request, name="login"),
 ]
