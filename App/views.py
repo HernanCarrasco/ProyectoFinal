@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import *
 from App.forms import * 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 
 def inicio(request):
@@ -84,8 +85,7 @@ def eliminar_blog(request, id):
 def publicacion(request):
     return render (request, "App/publicacion.html")
 
-"""def busqueda(request):
-    return render (request, "App/busqueda_tema.html")"""
+
 
 def busqueda_titulo(request):
     if request.GET['titulo']:
@@ -94,25 +94,6 @@ def busqueda_titulo(request):
     else:
         return render(request, "App/result_busqueda.html", {'mensaje':"No se ingresó un titulo para la busqueda."})
 
-
-def usuario(request):
-    if request.method == "POST":
-
-            formulario_user = UsuarioForm(request.POST, request.FILES)
-
-            if formulario_user.is_valid():
-                info=formulario_user.cleaned_data
-                nom=info["nombre_usuario"]
-                cont=info["contraseña"]
-                mail=info["email"]
-                blog=Blog(nombre_usuario=nom, contraseña=cont, email=mail)
-                blog.save()
-                return render (request, "App/inicio.html", {'mensaje': "Usuario Creado!"})
-            else:
-                return render (request, "App/crear_usuario.html", {"formulario":formulario_user, 'mensaje': "Error en los datos"}) 
-    else:
-            formulario_user=UsuarioForm()
-            return render (request, "App/crear_usuario.html", {"formulario":formulario_user})
 
 
 ### VBC ###
@@ -124,6 +105,22 @@ class UsuarioList(ListView):
 class UsuarioDetalle(DetailView):
     model = Usuario
     template_name = "App/Usuario.html"
+
+class UsuarioCreacion(CreateView):
+    model = Usuario
+    success_url = reverse_lazy("usuario_lista")
+    fields = ['nombre_usuario', 'email', 'contraseña']
+
+class UsuarioUpdate(UpdateView):
+    model = Usuario
+    success_url = reverse_lazy("usuario_lista")
+    fields = ['nombre_usuario', 'email', 'contraseña']
+
+class UsuarioDelete(DeleteView):
+    model = Usuario
+    success_url = reverse_lazy("usuario_lista")
+
+
 
 
 

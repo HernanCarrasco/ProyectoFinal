@@ -3,6 +3,7 @@ from .models import *
 
 admin.site.register(Usuario)
 admin.site.register(Blog)
-admin.site.register(Comentario)
+#admin.site.register(Comentario)
+#admin.site.register(Mensaje)
 admin.site.register(Avatar)
 

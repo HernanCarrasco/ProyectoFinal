@@ -1,7 +1,7 @@
 {% extends "App/padre.html" %}
 {% load static %}
 {% block Titulo %} Crear un usuario {% endblock %}
-{% block Descripcion %} Aqui se puede usuario  {% endblock %}
+{% block Descripcion %} Aqui se puede crear un usuario  {% endblock %}
 
 {% block contenido_pag %}
 <style>
@@ -20,8 +20,8 @@
     </style>
     <center>
         <div class="parrafo">
-            <form action="{% url 'crear_usuario' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %} 
-                <table> {{ formulario.as_table }} </table>
+            <form method="POST" enctype="multipart/form-data"> {% csrf_token %} 
+                <table> {{ form.as_table }} </table>
                 <input type="submit" value="Enviar">
             </form>
         </div>

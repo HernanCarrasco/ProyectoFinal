@@ -29,7 +29,7 @@ class Avatar(models.Model):
     imagen = models.ImageField(upload_to='avatares', null=True, blank=True) ## Esto no se si va así, lo dejo mientras
 
 
-class Comentario(models.Model):
+"""class Comentario(models.Model):
     cuerpo = models.CharField(max_length=500)
     avatar = models.ForeignKey(Avatar, on_delete=models.CASCADE) #Falta probar y mejorar esto, no se si funciona
     autor = models.ForeignKey(Usuario, on_delete=models.CASCADE) #Falta probar y mejorar esto, no se si funciona
@@ -40,4 +40,4 @@ class Mensaje(models.Model):
     cuerpo = models.CharField(max_length=500)
     avatar = models.ForeignKey(Avatar, on_delete=models.CASCADE) #Falta probar y mejorar esto, no se si funciona
     autor = models.ForeignKey(Usuario, on_delete=models.CASCADE) #Falta probar y mejorar esto, no se si funciona
-    fecha_pub = models.CharField(max_length=50)
+    fecha_pub = models.CharField(max_length=50)"""
