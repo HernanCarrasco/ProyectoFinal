@@ -145,7 +145,8 @@ def crear_blog(request):
             img=info["img"]
             blog=Blog(titulo=tit, subtitulo=subt, cuerpo=cuerpo, autor=aut, fecha_pub=fecha, categoria=cat, img=img)
             blog.save()
-            return render (request, "App/pages.html", {'mensaje': "Blog publicado!"})
+            blogs=Blog.objects.all()
+            return render (request, "App/pages.html", {'mensaje':"Blog publicado!", 'blogs':blogs})
         else:
             return render (request, "App/crear_blog.html", {"formulario":formulario_user, 'mensaje': "Error en los datos"}) 
     else:
@@ -218,11 +219,16 @@ def ver_usuario(request, id):
         avatar_usu="/media/avatares/avatarpordefecto.jpg"
     return render(request, "App/Usuario.html", {'user':user, "avatar_usu":avatar_usu, "avatar": get_avatar(request)}) 
 
+@login_required
 def usuarios_lista(request):
     usuarios=User.objects.all()
-    #avatares=Avatar.objects.all HACER QUE SE VEAN AVATAR DE CADA USUARIO... O NO.
-    #user_avatar=Avatar.objects.filter(user=i)
-    return render(request, "App/usuarios.html", {'usuarios':usuarios, "avatar": get_avatar(request)})
+    if request.user.is_authenticated:
+        return render(request, "App/usuarios.html", {'usuarios':usuarios, "avatar": get_avatar(request)})
+    else:
+        return render(request, "App/usuarios.html", {'usuarios':usuarios})
+
+
+
 
 
 

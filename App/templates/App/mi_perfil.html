@@ -18,7 +18,7 @@
               <h4 class="mb-2">{{ usuario.username }}</h4>
               <!-- <p class="text-muted mb-4">@Programmer <span class="mx-2">|</span>--> <a href="#!">{{ usuario.email }}</a></p>
               <a class="btn btn-warning" href="{% url 'editar_usuario' %}">Editar Usuario</a>
-              <a class="btn btn-danger" href="{% url 'eliminar_usuario' usuario.id %}">Eliminar Usuario</a> 
+              <a class="btn btn-danger" onclick="return confirm('Estas seguro de querer eliminar tu usuario?');" href="{% url 'eliminar_usuario' usuario.id %}">Eliminar Usuario</a> 
             </div>
           </div>
         </div>
