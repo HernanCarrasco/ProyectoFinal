@@ -15,9 +15,10 @@
                 <img src="{{ avatar_usu }}"
                   class="rounded-circle img-fluid" style="width: 100px;" />
               </div>
-              <h4 class="mb-2">{{ user.username }}</h4>
-              <!-- <p class="text-muted mb-4">@Programmer <span class="mx-2">|</span>--> <a href="#!">{{ user.email }}</a></p>
-              <button type="button" class="btn btn-primary btn-rounded btn-lg">Enviar Mensaje</button> 
+              <h4 class="mb-2">{{ usuario.username }}</h4>
+              <!-- <p class="text-muted mb-4">@Programmer <span class="mx-2">|</span>--> <a href="#!">{{ usuario.email }}</a></p>
+              <a class="btn btn-warning" href="{% url 'editar_usuario' %}">Editar Usuario</a>
+              <a class="btn btn-danger" href="{% url 'eliminar_usuario' usuario.id %}">Eliminar Usuario</a> 
             </div>
           </div>
         </div>

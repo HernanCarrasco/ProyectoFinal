@@ -29,14 +29,14 @@ def login_request(request):
             usuario=authenticate(username=usu, password=clave)
             if usuario is not None:
                 login(request, usuario)
-                return render(request, "App/inicio.html", {"mensaje_login": f"{usuario.username}"})
+                return render(request, "App/inicio.html", {"mensaje_login": f"{usuario.username}", 'avatar': get_avatar(request)})
             else:
                 return render(request, "App/login.html", {"formulario":form, "mensaje":"Usuario o Contraseña no existen"})
         else:
             return render(request, "App/login.html", {"formulario":form, "mensaje":"Usuario o Contraseña Incorrectos"})
     else:
         form=AuthenticationForm()
-        return render(request, "App/login.html", {"formulario":form, "avatar": get_avatar(request)})
+        return render(request, "App/login.html", {"formulario":form})
 
 
 def register(request):
@@ -45,13 +45,30 @@ def register(request):
         if form.is_valid():
             username=form.cleaned_data.get('username')
             form.save()
-            return render(request, "App/inicio.html", {"mensaje":f"Usuario {username} creado correctamente"})
+            return render(request, "App/inicio.html", {"mensaje":f"Usuario {username} creado correctamente."})
         else:
             return render(request, "App/register.html", {"formulario":form, "mensaje":"Formulario Invalido"})
 
     else:
         form=UsuarioRegisterForm()
         return render(request, "App/register.html", {"formulario":form})
+
+def mi_perfil(request):
+    usuario=request.user
+    lista_avatar=Avatar.objects.filter(user=usuario)
+    if len(lista_avatar)!=0:
+        avatar_usu=lista_avatar[0].imagen.url
+    else:
+        avatar_usu="/media/avatares/avatarpordefecto.jpg"
+    return render(request, "App/mi_perfil.html", {'usuario':usuario, "avatar_usu": avatar_usu, 'avatar': get_avatar(request)})
+
+@login_required
+def eliminar_usuario(request, id):
+    usuario=User.objects.get(id=id)
+    usuario.delete()
+
+    usuarios=User.objects.all() 
+    return render(request, "App/usuarios.html", {'usuarios':usuarios, "avatar": get_avatar(request)})
 
 
 @login_required
@@ -199,13 +216,15 @@ def ver_usuario(request, id):
         avatar_usu=lista_avatar[0].imagen.url
     else:
         avatar_usu="/media/avatares/avatarpordefecto.jpg"
-    return render(request, "App/Usuario.html", {'user':user, "avatar_usu":avatar_usu, "avatar": get_avatar(request)}) #CORREGIR PARA CUANDO NO HAYA AVATAR CON UN IF
-     
+    return render(request, "App/Usuario.html", {'user':user, "avatar_usu":avatar_usu, "avatar": get_avatar(request)}) 
 
 def usuarios_lista(request):
     usuarios=User.objects.all()
-    #avatares=Avatar.objects.all
+    #avatares=Avatar.objects.all HACER QUE SE VEAN AVATAR DE CADA USUARIO... O NO.
     #user_avatar=Avatar.objects.filter(user=i)
     return render(request, "App/usuarios.html", {'usuarios':usuarios, "avatar": get_avatar(request)})
+
+
+
     
 

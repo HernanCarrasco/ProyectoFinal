@@ -4,7 +4,7 @@
 {% block Descripcion %} Actualiza los datos del usuario  {% endblock %}
 
 {% block contenido_pag %}
-<h2>Formulario de Edicion de Usuario</h2>
+
 {{ mensaje }}
 <style>
     .parrafo{
@@ -22,6 +22,7 @@
     </style>
     <center>
         <div class="parrafo">
+            <h2>Formulario de Edicion de Usuario</h2>
             <form action="{% url 'editar_usuario' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %} 
                 <table> {{ formulario.as_table }} </table>
                 <input type="submit" value="Actualizar">
