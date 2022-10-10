@@ -7,7 +7,7 @@
 <style>
     .parrafo{
         z-index: 1;
-        height: 155px;
+        height: 200px;
         width: 540px;
         padding: 20px 20px;
         font-size: 15px;
@@ -24,8 +24,9 @@
                 <table> {{ formulario.as_table }} </table>
                 <input type="submit" value="Iniciar Sesion">
                 <h2>{{ mensaje }}</h2>
+                <h5>No estas registrado? <a href="{% url 'register' %}">Registrarse</a></h5>
             </form>
-        </div>
+        </div>   
     </center>
 
     <br>

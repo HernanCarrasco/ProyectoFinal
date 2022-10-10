@@ -31,8 +31,10 @@
                     <h2 class="fw-bolder mb-4 mt-5">{{ post.autor }}.</h2>
                 </section>
             </article>
+            {% if user.is_staff %}
             <a class="btn btn-danger" href="{% url 'eliminar_blog' post.id %}">Eliminar Publicacion</a>
             <a class="btn btn-warning" href="{% url 'editar_blog' post.id %}">Editar Publicacion</a>
+            {% endif %}
         </div>
     </div>
 </div>

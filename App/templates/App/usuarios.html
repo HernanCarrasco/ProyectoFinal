@@ -8,16 +8,16 @@
 {% block contenido_pag %}
 <h1> {{ mensaje }} </h1>
 
-{% if object_list %}
+{% if usuarios %}
 
 <div class="row">
-    {% for usuario in object_list %}
+    {% for usuario in usuarios %}
     <div class="col-lg-6"> 
         <div class="card mb-4">
-            <figure class="mb-4"><img class="img-fluid rounded" src="{{ usuario.avatar.url }}" style="object-fit:contain;
+            <!--<figure class="mb-4"><img class="img-fluid rounded" src="{{ usuario.avatar.url }}" style="object-fit:contain;
                 width:150px;
                 height:150px;
-                border: solid 1px #CCC" alt="..." /></figure>
+                border: solid 1px #CCC" alt="..." /></figure>-->
             <div class="card-body">
                 <h2 class="card-title">{{ usuario.username }}</h2>
                 <p class="card-text">{{ usuario.email }}</p>

@@ -1,7 +1,7 @@
 {% extends "App/padre.html" %}
 {% load static %}
 {% block Titulo %} Busqueda de Blogs {% endblock %}
-{% block Descripcion %} Aqui se pueden ver todos los posts que coincidan{% endblock %}
+{% block Descripcion %} Aqui se pueden ver todos los posts que coincidan con la busqueda{% endblock %}
 
 
 
@@ -18,7 +18,7 @@
                 <div class="small text-muted">{{ blog.fecha_pub }}</div>
                 <h2 class="card-title">{{ blog.titulo }}</h2>
                 <p class="card-text">{{ blog.subtitulo }}</p>
-                <a class="btn btn-primary" href="#!">Leer mas →</a>
+                <a class="btn btn-primary" href="{% url 'ver_post' blog.id %}">Leer mas →</a>
             </div>
         </div>
     </div>
