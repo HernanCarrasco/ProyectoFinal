@@ -14,8 +14,11 @@ urlpatterns = [
         path("login/", login_request, name="login"),
         path("register/", register, name="register"),
         path("Usuarios/list/", UsuarioList.as_view(), name="usuario_lista"),
+        path("Usuarios/msg/list/", UsuarioMessageList.as_view(), name="usuario_lista_msg"),
         path("Usuario/<id>", ver_usuario, name="ver_usuario"),
-        path("logout/", LogoutView.as_view(template_name='App/logout.html'), name="logout")
+        path("logout/", LogoutView.as_view(template_name='App/logout.html'), name="logout"),
+        path("editar_usuario/", editar_usuario, name="editar_usuario"),
+
 ]
 
 """cvb

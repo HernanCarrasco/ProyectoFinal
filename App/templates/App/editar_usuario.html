@@ -1,0 +1,47 @@
+{% extends "App/padre.html" %}
+{% load static %}
+{% block Titulo %} Editar usuario: {{ usuario }} {% endblock %}
+{% block Descripcion %} Actualiza los datos del usuario  {% endblock %}
+
+{% block contenido_pag %}
+<h2>Formulario de Edicion de Usuario</h2>
+{{ mensaje }}
+<style>
+    .parrafo{
+        z-index: 1;
+        height: 300px;
+        width: 540px;
+        padding: 20px 20px;
+        font-size: 15px;
+        line-height: 1.5;
+        background-color:white;
+        box-shadow: 1px 5px 25px;
+        color: black;
+        border-radius: 5px;
+        }
+    </style>
+    <center>
+        <div class="parrafo">
+            <form action="{% url 'editar_usuario' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %} 
+                <table> {{ formulario.as_table }} </table>
+                <input type="submit" value="Actualizar">
+            </form>
+        </div>
+    </center>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+{% endblock %}

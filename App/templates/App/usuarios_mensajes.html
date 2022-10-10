@@ -1,0 +1,38 @@
+{% extends "App/padre.html" %}
+{% load static %}
+{% block Titulo %} Todos los Usuarios {% endblock %}
+{% block Descripcion %} Aqui se pueden ver todos los Usuarios creados {% endblock %}
+
+
+
+{% block contenido_pag %}
+<h1> {{ mensaje }} </h1>
+
+{% if object_list %}
+
+<div class="row">
+    {% for usuario in object_list %}
+    <div class="col-lg-6"> 
+        <div class="card mb-4">
+            <figure class="mb-4"><img class="img-fluid rounded" src="{{ usuario.avatar.url }}" style="object-fit:contain;
+                width:150px;
+                height:150px;
+                border: solid 1px #CCC" alt="..." /></figure>
+            <div class="card-body">
+                <h2 class="card-title">{{ usuario.username }}</h2>
+                <p class="card-text">{{ usuario.email }}</p>
+                <a class="btn btn-primary" href="{% url 'ver_usuario' usuario.id %}">Ver Usuario →</a>
+                <a class="btn btn-primary" href="#!">Enviar Mensaje →</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+
+<p>No se encontraron usuarios.</p>
+
+{% endif %}
+
+{% endblock %}

@@ -49,6 +49,27 @@ def register(request):
         form=UsuarioRegisterForm()
         return render(request, "App/register.html", {"formulario":form})
 
+
+@login_required
+def editar_usuario(request):
+    usuario=request.user
+    if request.method=="POST":
+        form=UserEditForm(request.POST)
+        if form.is_valid():
+            info=form.cleaned_data
+            usuario.email=info["email"]
+            usuario.password1=info["password1"]
+            usuario.password2=info["password2"]
+            usuario.first_name=info["first_name"]
+            usuario.last_name=info["last_name"]
+            usuario.save()
+            return render(request, "App/inicio.html", {"mensaje":"Usuario editado correctamente"})
+        else:
+            return render(request, "App/editar_usuario.html", {"formulario":form, "usuario":usuario, "mensaje":"Formulario Invalido"})
+    else:
+        form= UserEditForm(instance=usuario)
+    return render(request, "App/editar_usuario.html", {"formulario":form, "usuario":usuario})
+
     
 
 def ver_post(request, id):
@@ -142,6 +163,10 @@ def ver_usuario(request, id):
 class UsuarioList(LoginRequiredMixin, ListView):
     model = User
     template_name = "App/usuarios.html"
+
+class UsuarioMessageList(LoginRequiredMixin, ListView):
+    model = User
+    template_name = "App/usuarios_mensajes.html"
 
 """class UsuarioDetalle(DetailView):
     model = User
