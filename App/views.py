@@ -13,7 +13,12 @@ from django.contrib.auth.decorators import login_required
 
 
 def inicio(request):
-    return render (request, "App/inicio.html")
+    lista_avatar=Avatar.objects.filter(user=request.user)
+    if len(lista_avatar) != 0:
+        avatar=lista_avatar[0].imagen.url
+    else:
+        avatar=None #AQUI VA IMAGEN PREDETERMINADA
+    return render (request, "App/inicio.html", {"avatar":avatar})
 
 def login_request(request):
     if request.method == "POST":
@@ -25,7 +30,7 @@ def login_request(request):
             usuario=authenticate(username=usu, password=clave)
             if usuario is not None:
                 login(request, usuario)
-                return render(request, "App/inicio.html", {"mensaje_login": f"Sesion iniciada como {usuario}"})
+                return render(request, "App/inicio.html", {"mensaje_login": f"{usuario.username}"})
             else:
                 return render(request, "App/login.html", {"formulario":form, "mensaje":"Usuario o Contraseña no existen"})
         else:
@@ -68,9 +73,38 @@ def editar_usuario(request):
             return render(request, "App/editar_usuario.html", {"formulario":form, "usuario":usuario, "mensaje":"Formulario Invalido"})
     else:
         form= UserEditForm(instance=usuario)
-    return render(request, "App/editar_usuario.html", {"formulario":form, "usuario":usuario})
+    return render(request, "App/editar_usuario.html", {"formulario":form, "usuario":usuario, "avatar": get_avatar(request)})
 
-    
+
+@login_required
+def agregar_avatar(request):
+    if request.method=='POST':
+        formulario=AvatarForm(request.POST, request.FILES)
+        if formulario.is_valid():
+            avatar_pre=Avatar.objects.filter(user=request.user)
+            if(len(avatar_pre)>0):
+                avatar_pre[0].delete()
+            avatar=Avatar(user=request.user, imagen=formulario.cleaned_data['imagen'])
+            avatar.save()
+            return render(request, 'App/inicio.html', {'usuario':request.user, 'mensaje':'Avatar agregado con exito.', "avatar": avatar.imagen.url})
+        else:
+            return render(request, 'App/agregar_avatar.html', {'formulario':formulario, 'mensaje':'Formulario Invalido'})
+        
+    else:
+        formulario=AvatarForm()
+        return render(request, "App/agregar_avatar.html", {"formulario":formulario, "usuario":request.user, "avatar": get_avatar(request)})
+
+
+def get_avatar(request):
+    lista=Avatar.objects.filter(user=request.user)
+    if len(lista)!=0:
+        imagen=lista[0].imagen.url
+    else:
+        imagen="/media/avatares/avatarpordefecto.jpeg"
+    return imagen
+
+
+
 
 def ver_post(request, id):
     post = Blog.objects.get(id=id)
@@ -100,7 +134,7 @@ def crear_blog(request):
             return render (request, "App/crear_blog.html", {"formulario":formulario_user, 'mensaje': "Error en los datos"}) 
     else:
         formulario_user=BlogForm()
-        return render (request, "App/crear_blog.html", {"formulario":formulario_user})
+        return render (request, "App/crear_blog.html", {"formulario":formulario_user, "avatar": get_avatar(request)})
         
 @login_required
 def editar_blog(request, id):
@@ -127,7 +161,7 @@ def editar_blog(request, id):
             return render (request, "App/editar_blog.html", {"formulario":formulario_user, 'mensaje': "Error en los datos"}) 
     else:
         formulario_user=BlogForm(initial={'titulo':blog.titulo, 'subtitulo':blog.subtitulo, 'cuerpo':blog.cuerpo, 'autor':blog.autor, 'fecha_pub':blog.fecha_pub, 'categoria':blog.categoria, 'img':blog.img})
-        return render (request, "App/editar_blog.html", {"formulario":formulario_user, 'blog':blog})
+        return render (request, "App/editar_blog.html", {"formulario":formulario_user, 'blog':blog, "avatar": get_avatar(request)})
 
 
 def pages(request):
@@ -141,7 +175,7 @@ def eliminar_blog(request, id):
     blog.delete()
 
     blogs=Blog.objects.all() 
-    return render(request, "App/pages.html", {'blogs':blogs})
+    return render(request, "App/pages.html", {'blogs':blogs, "avatar": get_avatar(request)})
 
 
 
@@ -154,7 +188,12 @@ def busqueda_titulo(request):
 
 def ver_usuario(request, id):
     user=User.objects.get(id=id)
-    return render(request, "App/Usuario.html", {'user':user})
+    lista_avatar=Avatar.objects.filter(user=user)
+    if len(lista_avatar) != 0:
+        avatar=lista_avatar[0].imagen.url
+    else:
+        avatar=None #AQUI VA IMAGEN PREDETERMINADA
+    return render(request, "App/Usuario.html", {'user':user, 'avatar':avatar}) #CORREGIR PARA CUANDO NO HAYA AVATAR CON UN IF
 
 
 

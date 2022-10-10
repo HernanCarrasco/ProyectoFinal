@@ -39,12 +39,11 @@ class BlogForm(forms.Form):
     def __str__(self):
         return self.titulo
 
-"""class Avatar(forms.Form):
-    user = forms.ForeignKey(User, on_delete=forms.CASCADE)
-    imagen = forms.ImageField(upload_to='avatares', null=True, blank=True) ## Esto no se si va aquí, lo dejo comentado mientras
+class AvatarForm(forms.Form):
+    imagen = forms.ImageField(label="Imagen")
 
 
-class ComentarioForm(forms.Form):
+"""class ComentarioForm(forms.Form):
     cuerpo = forms.CharField(max_length=500)
     avatar = forms.ForeignKey(Avatar, on_delete=models.CASCADE) #Falta probar y mejorar esto, no se si funciona
     autor = forms.ForeignKey(Usuario, on_delete=models.CASCADE) #Falta probar y mejorar esto, no se si funciona

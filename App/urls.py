@@ -18,6 +18,8 @@ urlpatterns = [
         path("Usuario/<id>", ver_usuario, name="ver_usuario"),
         path("logout/", LogoutView.as_view(template_name='App/logout.html'), name="logout"),
         path("editar_usuario/", editar_usuario, name="editar_usuario"),
+        path("agregar_avatar/", agregar_avatar, name="agregar_avatar"),
+        
 
 ]
 

@@ -1,0 +1,12 @@
+{% extends "App/padre.html" %}
+{% load static %}
+{% block Titulo %} Agregar un avatar para {{ usuario }}  {% endblock %}
+{% block Descripcion %} Carga un avatar para tu perfil {% endblock %}
+
+{% block contenido_pag %}
+<form action="{% url 'agregar_avatar' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %} 
+    <table> {{ formulario.as_table }} </table>
+    <button type="submit">Guardar</button>
+</form>
+
+{% endblock %}
