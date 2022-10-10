@@ -13,12 +13,15 @@ from django.contrib.auth.decorators import login_required
 
 
 def inicio(request):
-    lista_avatar=Avatar.objects.filter(user=request.user)
-    if len(lista_avatar) != 0:
-        avatar=lista_avatar[0].imagen.url
+    if request.user.is_authenticated:
+        lista_avatar=Avatar.objects.filter(user=request.user)
+        if len(lista_avatar) != 0:
+            avatar=lista_avatar[0].imagen.url
+        else:
+            avatar=None #AQUI VA IMAGEN PREDETERMINADA
+        return render (request, "App/inicio.html", {"avatar":avatar})
     else:
-        avatar=None #AQUI VA IMAGEN PREDETERMINADA
-    return render (request, "App/inicio.html", {"avatar":avatar})
+        return render (request, "App/inicio.html")
 
 def login_request(request):
     if request.method == "POST":
