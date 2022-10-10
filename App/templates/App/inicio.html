@@ -8,39 +8,32 @@
 {% block contenido_pag %}
 <h1>{{ mensaje }}</h1>
 <div class="card mb-4">
-    <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+    <a href="#!"><img class="card-img-top" src="{{ featured.img.url }}" alt="..." /></a>
     <div class="card-body">
-        <div class="small text-muted">January 1, 2022</div>
-        <h2 class="card-title">Featured Post Title</h2>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-        <a class="btn btn-primary" href="#!">Read more →</a>
+        <div class="small text-muted">{{ featured.fecha_pub }}</div>
+        <h2 class="card-title">{{ featured.titulo }}</h2>
+        <p class="card-text">{{ featured.subtitulo }}</p>
+        <a class="btn btn-primary" href="{% url 'ver_post' featured.id %}">Leer Mas →</a>
     </div>
 </div>
 <!-- Nested row for non-featured blog posts-->
 <div class="row">
-    <div class="col-lg-6">
-        <!-- Blog post-->
+    {% for blog in blogs %}
+    <div class="col-lg-6"> 
         <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+            <figure class="mb-4"><img class="img-fluid rounded" src="{{ blog.img.url }}" style="object-fit:contain;
+                width:700px;
+                height:350px;
+                border: solid 1px #CCC" alt="..." /></figure>
             <div class="card-body">
-                <div class="small text-muted">January 1, 2022</div>
-                <h2 class="card-title h4">Post Title</h2>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                <a class="btn btn-primary" href="#!">Read more →</a>
+                <div class="small text-muted">{{ blog.fecha_pub }}</div>
+                <h2 class="card-title">{{ blog.titulo }}</h2>
+                <p class="card-text">{{ blog.subtitulo }}</p>
+                <a class="btn btn-primary" href="{% url 'ver_post' blog.id %}">Leer mas →</a>
             </div>
         </div>
     </div>
-    <div class="col-lg-6">
-        <!-- Blog post-->
-        <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-            <div class="card-body">
-                <div class="small text-muted">January 1, 2022</div>
-                <h2 class="card-title h4">Post Title</h2>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                <a class="btn btn-primary" href="#!">Read more →</a>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
 </div>
+        
 {% endblock %}

@@ -13,8 +13,11 @@ from django.contrib.auth.decorators import login_required
 
 
 def inicio(request):
+    all_blogs=Blog.objects.all() 
+    blogs=all_blogs[1:3]
+    featured=all_blogs[0]
     if request.user.is_authenticated:
-        return render (request, "App/inicio.html", {"avatar": get_avatar(request)})
+        return render (request, "App/inicio.html", {"blogs":blogs, "featured":featured, "avatar": get_avatar(request)})
     else:
         return render (request, "App/inicio.html")
 
@@ -177,7 +180,7 @@ def editar_blog(request, id):
         else:
             return render (request, "App/editar_blog.html", {"formulario":formulario_user, 'mensaje': "Error en los datos","avatar": get_avatar(request)}) 
     else:
-        formulario_user=BlogForm(initial={'titulo':blog.titulo, 'subtitulo':blog.subtitulo, 'cuerpo':blog.cuerpo, 'autor':blog.autor, 'fecha_pub':blog.fecha_pub, 'categoria':blog.categoria, 'img':blog.img})
+        formulario_user=BlogForm(initial={'titulo':blog.titulo, 'subtitulo':blog.subtitulo, 'cuerpo':blog.cuerpo, 'autor':blog.autor, 'fecha_pub':blog.fecha_pub, 'categoria':blog.categoria})
         return render (request, "App/editar_blog.html", {"formulario":formulario_user, 'blog':blog, "avatar": get_avatar(request)})
 
 @login_required
