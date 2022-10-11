@@ -45,13 +45,7 @@ class AvatarForm(forms.Form):
     imagen = forms.ImageField(label="Imagen")
 
 
-"""class ComentarioForm(forms.Form):
-    cuerpo = forms.CharField(max_length=500)
-    avatar = forms.ForeignKey(Avatar, on_delete=models.CASCADE) #Falta probar y mejorar esto, no se si funciona
-    autor = forms.ForeignKey(Usuario, on_delete=models.CASCADE) #Falta probar y mejorar esto, no se si funciona
-    fecha_pub = forms.CharField(max_length=50)
-
-
+"""
 class MensajeForm(forms.Form):
     cuerpo = forms.CharField(max_length=500)
     avatar = forms.ForeignKey(Avatar, on_delete=forms.CASCADE) #Falta probar y mejorar esto, no se si funciona

@@ -1,0 +1,51 @@
+{% extends "App/padre.html" %}
+{% load static %}
+{% block Titulo %} Mensajes {% endblock %}
+{% block Descripcion %} Que deseas hacer? {% endblock %}
+
+{% block contenido_pag %}
+
+<div class="row">
+    <div class="col-lg-6"> 
+        <div class="card mb-4">
+            <!--<figure class="mb-4"><img class="img-fluid rounded" src="{{ usuario.avatar.url }}" style="object-fit:contain;
+                width:150px;
+                height:150px;
+                border: solid 1px #CCC" alt="..." /></figure>-->
+            <div class="card-body">
+                <h2 class="card-title">Enviar un Mensaje</h2>
+                <a class="btn btn-primary" href="{% url 'enviar_msg' %}">Ir →</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6"> 
+        <div class="card mb-4">
+            <!--<figure class="mb-4"><img class="img-fluid rounded" src="{{ usuario.avatar.url }}" style="object-fit:contain;
+                width:150px;
+                height:150px;
+                border: solid 1px #CCC" alt="..." /></figure>-->
+            <div class="card-body">
+                <h2 class="card-title">Mensajes Recibidos</h2>
+                <a class="btn btn-primary" href="#!">Ir →</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6"> 
+        <div class="card mb-4">
+            <!--<figure class="mb-4"><img class="img-fluid rounded" src="{{ usuario.avatar.url }}" style="object-fit:contain;
+                width:150px;
+                height:150px;
+                border: solid 1px #CCC" alt="..." /></figure>-->
+            <div class="card-body">
+                <h2 class="card-title">Eliminar un mensaje</h2>
+                <a class="btn btn-primary" href="#!">Ir →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
