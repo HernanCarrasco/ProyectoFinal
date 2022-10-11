@@ -42,11 +42,13 @@ pip install django-tinymce
 
 La aplicacion permite: 
 
-- Crear registros de Equipos, Jugadores, Entrenadores, Ligas y Campeonatos.
+- Crear Blogs, ver, buscar, editar y eliminar.
 
-- Ver todos los registros creados por cada uno.
+- Ver detalle de todos los blogs.
 
-- Buscar en todos los registros por Nombre, País o Equipo.
+- Buscar blogs por titulo o categoría.
+
+- Crear (editar, ver, eliminar) un usuario, iniciar sesion, enviar mensajes a otros usuarios.
 
 
 ## Autores
