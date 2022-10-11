@@ -24,8 +24,9 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'pages' %}">Blogs</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'usuarios_lista' %}">Usuarios</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'mensajes' %}">Mensajes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'About' %}">Acerca de nosotros</a></li>
                         {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'mi_perfil' %}" >Sesion iniciada como {{ user.username }}</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'mi_perfil' %}" >Perfil de {{ user.username }}</a></li>
                         <div class="mt-3 mb-4">
                             <img src="{{ avatar }}" class="rounded-circle img-fluid" style="width: 25px;"  />
                         </div>

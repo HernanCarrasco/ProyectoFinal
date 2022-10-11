@@ -22,6 +22,30 @@ def inicio(request):
         return render (request, "App/inicio.html", {"blogs":blogs, "featured":featured})
 
 
+def About(request):
+    all_blogs=Blog.objects.all()
+    blogs=all_blogs[1:3]
+    featured=all_blogs[0]
+    usuarios=User.objects.all
+    #blogs=Blog.objects.filter(titulo__icontains=request.GET['titulo'])
+    #blogs=Blog.objects.filter(categoria=request.GET['categoria'])
+    #admin1=User.objects.filter(username=admin1.username)
+    #admin2=User.objects.filter(username=admin1.username)
+    if request.user.is_authenticated:
+        return render (request, "App/About.html", {"blogs":blogs, "featured":featured, "usuarios":usuarios, "avatar": get_avatar(request)})
+    else:
+        return render (request, "App/About.html", {"blogs":blogs, "featured":featured})
+
+"""def ver_usuario(request, id):
+    user=User.objects.get(id=id)
+    lista_avatar=Avatar.objects.filter(user=user)
+    if len(lista_avatar)!=0:
+        avatar_usu=lista_avatar[0].imagen.url
+    else:
+        avatar_usu="/media/avatares/avatarpordefecto.jpg"
+    return render(request, "App/Usuario.html", {'user':user, "avatar_usu":avatar_usu, "avatar": get_avatar(request)})""" 
+
+
 def login_request(request):
     all_blogs=Blog.objects.all() 
     blogs=all_blogs[1:3]
