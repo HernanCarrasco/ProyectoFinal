@@ -26,7 +26,7 @@
                     border: solid 1px #CCC" alt="..." /></figure>
                 <!-- Post content-->
                 <section class="mb-5">
-                    <p class="fs-5 mb-4">{{ post.cuerpo }}</p>
+                    <p class="fs-5 mb-4">{{ post.cuerpo | safe }}</p>
                     
                     <h2 class="fw-bolder mb-4 mt-5">{{ post.autor }}.</h2>
                 </section>

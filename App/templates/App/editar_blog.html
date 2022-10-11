@@ -5,7 +5,8 @@
 
 {% block contenido_pag %}
 <form action="{% url 'editar_blog' blog.id %}" method="POST" enctype="multipart/form-data"> {% csrf_token %} 
-    <table> {{ formulario.as_table }} </table>
+    <table> {{ formulario.media }}
+        {{ formulario.as_table }} </table>
     <input type="submit" value="Guardar Cambios">
 </form>
 

@@ -4,9 +4,12 @@
 {% block Descripcion %} Aqui se puede crear un post nuevo {% endblock %}
 
 {% block contenido_pag %}
+
 <form action="{% url 'crear_blog' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %} 
-    <table> {{ formulario.as_table }} </table>
-    <input type="submit" value="Enviar">
+    <table>{{ formulario.media }}
+        {{ formulario.as_table }}</table>
+<input type="submit" value="Enviar">
 </form>
+
 
 {% endblock %}

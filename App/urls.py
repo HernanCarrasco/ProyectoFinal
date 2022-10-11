@@ -1,4 +1,4 @@
-from django.urls import path    
+from django.urls import path, include    
 from App.views import *
 from django.contrib.auth.views import LogoutView
 
@@ -17,6 +17,7 @@ urlpatterns = [
         path("busqueda_cat/", busqueda_cat, name="busqueda_cat"),
         path("mi_perfil/", mi_perfil, name="mi_perfil"),
         path('usuario/eliminar/<id>', eliminar_usuario, name='eliminar_usuario'),
+        path('tinymce/', include('tinymce.urls')),
 # Login, Register, Logout
         path("login/", login_request, name="login"),
         path("register/", register, name="register"),

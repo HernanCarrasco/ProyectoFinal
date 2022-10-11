@@ -2,6 +2,8 @@ from dataclasses import fields
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
+from tinymce.widgets import TinyMCE
 
 
 class UsuarioRegisterForm(UserCreationForm):
@@ -30,7 +32,7 @@ class UserEditForm(UserCreationForm):
 class BlogForm(forms.Form):
     titulo = forms.CharField(max_length=100)
     subtitulo = forms.CharField(max_length=300)
-    cuerpo = forms.CharField(max_length=5000)
+    cuerpo = forms.CharField(widget=TinyMCE(attrs={'cols':80, 'rows':30}))
     autor = forms.CharField(max_length=100)
     fecha_pub = forms.CharField(max_length=50)
     categoria = forms.CharField(max_length=50)

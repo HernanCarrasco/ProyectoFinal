@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 
 
 """class Usuario(models.Model):
@@ -14,7 +15,7 @@ from django.contrib.auth.models import User
 class Blog(models.Model):
     titulo = models.CharField(max_length=100)
     subtitulo = models.CharField(max_length=300)
-    cuerpo = models.CharField(max_length=10000)
+    cuerpo = HTMLField()
     autor = models.CharField(max_length=100)
     fecha_pub = models.CharField(max_length=50)
     categoria = models.CharField(max_length=50)
