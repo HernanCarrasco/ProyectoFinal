@@ -30,7 +30,7 @@ def About(request):
     if request.user.is_authenticated:
         return render (request, "App/About.html", {"blogs":blogs, "featured":featured, "usuarios":usuarios, "avatar": get_avatar(request)})
     else:
-        return render (request, "App/About.html", {"blogs":blogs, "featured":featured})
+        return render (request, "App/About.html", {"blogs":blogs, "featured":featured, "usuarios":usuarios})
 
 
 
@@ -222,7 +222,7 @@ def eliminar_blog(request, id):
     return render(request, "App/pages.html", {'blogs':blogs, "avatar": get_avatar(request)})
 
 
-
+@login_required
 def busqueda_titulo(request):
     if request.GET['titulo']:
         blogs=Blog.objects.filter(titulo__icontains=request.GET['titulo'])             
@@ -230,6 +230,7 @@ def busqueda_titulo(request):
     else:
         return render(request, "App/result_busqueda.html", {'mensaje':"No se ingresó un titulo para la busqueda.", "avatar": get_avatar(request)})
 
+@login_required
 def busqueda_cat(request):
         if request.GET['categoria']: #creo que el if se podria quitar
             blogs=Blog.objects.filter(categoria=request.GET['categoria'])             
@@ -237,6 +238,8 @@ def busqueda_cat(request):
         else:
             return render(request, "App/result_busqueda.html", {'mensaje':"No se ingresó un titulo para la busqueda.", "avatar": get_avatar(request)})
 
+
+@login_required
 def ver_usuario(request, id):
     user=User.objects.get(id=id)
     lista_avatar=Avatar.objects.filter(user=user)

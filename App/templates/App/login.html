@@ -7,7 +7,7 @@
 <style>
     .parrafo{
         z-index: 1;
-        height: 200px;
+        height: 270px;
         width: 540px;
         padding: 20px 20px;
         font-size: 15px;
@@ -23,7 +23,12 @@
             <form action="{% url 'login' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %} 
                 <table> {{ formulario.as_table }} </table>
                 <input type="submit" value="Iniciar Sesion">
-                <h2>{{ mensaje }}</h2>
+                <h6>{{ mensaje }}</h6>
+                {% if not mensaje %}
+                <br>
+                <br>
+                <br>
+                {% endif %}
                 <h5>No estas registrado? <a href="{% url 'register' %}">Registrarse</a></h5>
             </form>
         </div>   
