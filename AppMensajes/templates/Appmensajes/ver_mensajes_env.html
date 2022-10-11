@@ -1,0 +1,42 @@
+{% extends "App/padre.html" %}
+{% load static %}
+{% block Titulo %} Mensajes {% endblock %}
+{% block Descripcion %} Aqui se pueden ver los mensajes enviados {% endblock %}
+
+
+
+{% block contenido_pag %}
+<h1> {{ mensaje }} </h1>
+
+{% if mensajes %}
+
+<div class="row">
+    {% for mensaje in mensajes %}
+    <div class="col-lg-6"> 
+        <div class="card mb-4">
+            <!--<figure class="mb-4"><img class="img-fluid rounded" src="{{ blog.img.url }}" style="object-fit:contain;
+                width:700px;
+                height:350px;
+                border: solid 1px #CCC" alt="..." /></figure>-->
+            <div class="card-body">
+                <div class="small text-muted">de <b>{{ mensaje.autor }}</b></div>
+                <div class="small text-muted">para <b>{{ mensaje.receptor }}</b></div>
+                <br>
+                <div class="small text-muted">Mensaje:</div>
+                <h2 class="card-title">{{ mensaje.cuerpo | safe }} </h2>
+                <a class="btn btn-danger" onclick="return confirm('Estas seguro de querer eliminar este mensaje?');" href="{% url 'eliminar_mensaje' mensaje.id %}">Eliminar Mensaje</a>
+                <!--<p class="card-text">{{ blog.subtitulo }}</p>
+                <a class="btn btn-primary" href="#!">Leer mas →</a>-->
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+
+<p>No se encontraron mensajes.</p>
+
+{% endif %}
+
+{% endblock %}

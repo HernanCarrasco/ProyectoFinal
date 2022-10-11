@@ -10,32 +10,44 @@ from App.views import get_avatar
 def mensajes(request):
     return render (request, "AppMensajes/mensajes_home.html", {"avatar": get_avatar(request)})
 
-    
-
 
 def enviar_msg(request):
+    usuario=request.user
     if request.method == "POST":
-        pass
-
-        """formulario_user = BlogForm(request.POST, request.FILES)
-
-        if formulario_user.is_valid():
-            info=formulario_user.cleaned_data
-            tit=info["titulo"]
-            subt=info["subtitulo"]
+        form_mensaje = MensajeForm(request.POST, request.FILES)
+        if form_mensaje.is_valid():
+            info=form_mensaje.cleaned_data
+            receptor=info["receptor"]
             cuerpo=info["cuerpo"]
             aut=info["autor"]
-            fecha=info["fecha_pub"]
-            cat=info["categoria"]
-            img=info["img"]
-            blog=Blog(titulo=tit, subtitulo=subt, cuerpo=cuerpo, autor=aut, fecha_pub=fecha, categoria=cat, img=img)
-            blog.save()
-            blogs=Blog.objects.all()
-            return render (request, "App/pages.html", {'mensaje':"Blog publicado!", 'blogs':blogs})
+            mensaje=Mensaje(receptor=receptor, cuerpo=cuerpo, autor=aut)
+            mensaje.save()
+            mensajes= Mensaje.objects.filter(autor__icontains=usuario.username)
+            return render (request, "AppMensajes/ver_mensajes.html", {'mensaje':"Mensaje enviado!", 'mensajes':mensajes})
         else:
-            return render (request, "App/crear_blog.html", {"formulario":formulario_user, 'mensaje': "Error en los datos"}) """
+            return render (request, "AppMensajes/enviar_msg.html", {"formulario":form_mensaje, 'mensaje': "Error en los datos"})
     else:
         form_mensaje=MensajeForm()
         return render (request, "AppMensajes/crear_mensaje.html", {"formulario":form_mensaje, "avatar": get_avatar(request)})
     
+
+def ver_mensajes_rec(request):
+    usuario=request.user
+    mensajes= Mensaje.objects.filter(receptor__icontains=usuario.username) #si hay error puede que sea aqui, dejar usuario o poner request.get como en la view de busqueda
+    return render (request, "AppMensajes/ver_mensajes_rec.html", {"mensajes":mensajes, "avatar": get_avatar(request)})
+
+def ver_mensajes_env(request):
+    usuario=request.user
+    mensajes= Mensaje.objects.filter(autor__icontains=usuario.username) #si hay error puede que sea aqui, dejar usuario o poner request.get como en la view de busqueda
+    return render (request, "AppMensajes/ver_mensajes_env.html", {"mensajes":mensajes, "avatar": get_avatar(request)})
+
+
+@login_required
+def eliminar_mensaje(request, id):
+    usuario=request.user
+    mensaje=Mensaje.objects.get(id=id)
+    mensaje.delete()
+    mensajes= Mensaje.objects.filter(receptor__icontains=usuario.username) 
+    return render(request, "AppMensajes/mensajes_home.html", {'mensajes':mensajes, "avatar": get_avatar(request)})
+
 

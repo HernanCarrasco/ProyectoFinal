@@ -4,7 +4,7 @@
 {% block Descripcion %} Que deseas hacer? {% endblock %}
 
 {% block contenido_pag %}
-
+{{ mensaje }}
 <div class="row">
     <div class="col-lg-6"> 
         <div class="card mb-4">
@@ -28,7 +28,7 @@
                 border: solid 1px #CCC" alt="..." /></figure>-->
             <div class="card-body">
                 <h2 class="card-title">Mensajes Recibidos</h2>
-                <a class="btn btn-primary" href="#!">Ir →</a>
+                <a class="btn btn-primary" href="{% url 'ver_mensajes_rec' %}">Ir →</a>
             </div>
         </div>
     </div>
@@ -41,8 +41,8 @@
                 height:150px;
                 border: solid 1px #CCC" alt="..." /></figure>-->
             <div class="card-body">
-                <h2 class="card-title">Eliminar un mensaje</h2>
-                <a class="btn btn-primary" href="#!">Ir →</a>
+                <h2 class="card-title">Mensajes Enviados</h2>
+                <a class="btn btn-primary" href="{% url 'ver_mensajes_env' %}">Ir →</a>
             </div>
         </div>
     </div>

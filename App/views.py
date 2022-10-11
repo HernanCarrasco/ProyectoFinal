@@ -13,16 +13,19 @@ from django.contrib.auth.decorators import login_required
 
 
 def inicio(request):
-    all_blogs=Blog.objects.all() 
+    all_blogs=Blog.objects.all() #AGREGADO EN TODAS LAS VIEWS QUE RENDEREEN "INICIO" PARA QUE APAREZCA EL FEATURED Y LOS POSTS
     blogs=all_blogs[1:3]
     featured=all_blogs[0]
     if request.user.is_authenticated:
         return render (request, "App/inicio.html", {"blogs":blogs, "featured":featured, "avatar": get_avatar(request)})
     else:
-        return render (request, "App/inicio.html")
+        return render (request, "App/inicio.html", {"blogs":blogs, "featured":featured})
 
 
 def login_request(request):
+    all_blogs=Blog.objects.all() 
+    blogs=all_blogs[1:3]
+    featured=all_blogs[0]
     if request.method == "POST":
         form=AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -32,7 +35,7 @@ def login_request(request):
             usuario=authenticate(username=usu, password=clave)
             if usuario is not None:
                 login(request, usuario)
-                return render(request, "App/inicio.html", {"mensaje_login": f"{usuario.username}", 'avatar': get_avatar(request)})
+                return render(request, "App/inicio.html", {"mensaje_login": f"{usuario.username}", "featured":featured, "blogs":blogs, 'avatar': get_avatar(request)})
             else:
                 return render(request, "App/login.html", {"formulario":form, "mensaje":"Usuario o Contraseña no existen"})
         else:
@@ -43,12 +46,15 @@ def login_request(request):
 
 
 def register(request):
+    all_blogs=Blog.objects.all() 
+    blogs=all_blogs[1:3]
+    featured=all_blogs[0]
     if request.method=="POST":
         form=UsuarioRegisterForm(request.POST)
         if form.is_valid():
             username=form.cleaned_data.get('username')
             form.save()
-            return render(request, "App/inicio.html", {"mensaje":f"Usuario {username} creado correctamente."})
+            return render(request, "App/inicio.html", {"mensaje":f"Usuario {username} creado correctamente.","featured":featured, "blogs":blogs})
         else:
             return render(request, "App/register.html", {"formulario":form, "mensaje":"Formulario Invalido"})
 
@@ -76,6 +82,9 @@ def eliminar_usuario(request, id):
 
 @login_required
 def editar_usuario(request):
+    all_blogs=Blog.objects.all() 
+    blogs=all_blogs[1:3]
+    featured=all_blogs[0]
     usuario=request.user
     if request.method=="POST":
         form=UserEditForm(request.POST)
@@ -87,7 +96,7 @@ def editar_usuario(request):
             usuario.first_name=info["first_name"]
             usuario.last_name=info["last_name"]
             usuario.save()
-            return render(request, "App/inicio.html", {"mensaje":"Usuario editado correctamente"})
+            return render(request, "App/inicio.html", {"mensaje":"Usuario editado correctamente.", "featured":featured, "blogs":blogs})
         else:
             return render(request, "App/editar_usuario.html", {"formulario":form, "usuario":usuario, "mensaje":"Formulario Invalido"})
     else:
@@ -97,6 +106,9 @@ def editar_usuario(request):
 
 @login_required
 def agregar_avatar(request):
+    all_blogs=Blog.objects.all() 
+    blogs=all_blogs[1:3]
+    featured=all_blogs[0]
     if request.method=='POST':
         formulario=AvatarForm(request.POST, request.FILES)
         if formulario.is_valid():
@@ -105,7 +117,7 @@ def agregar_avatar(request):
                 avatar_pre[0].delete()
             avatar=Avatar(user=request.user, imagen=formulario.cleaned_data['imagen'])
             avatar.save()
-            return render(request, 'App/inicio.html', {'usuario':request.user, 'mensaje':'Avatar agregado con exito.', "avatar": avatar.imagen.url})
+            return render(request, 'App/inicio.html', {'usuario':request.user, 'mensaje':'Avatar agregado con exito.', "avatar": avatar.imagen.url, "featured":featured, "blogs":blogs})
         else:
             return render(request, 'App/agregar_avatar.html', {'formulario':formulario, 'mensaje':'Formulario Invalido'})
         
@@ -207,7 +219,7 @@ def busqueda_titulo(request):
         return render(request, "App/result_busqueda.html", {'mensaje':"No se ingresó un titulo para la busqueda.", "avatar": get_avatar(request)})
 
 def busqueda_cat(request):
-        if request.GET['categoria']:
+        if request.GET['categoria']: #creo que el if se podria quitar
             blogs=Blog.objects.filter(categoria=request.GET['categoria'])             
             return render(request, "App/result_busqueda.html", {"blogs":blogs, "avatar": get_avatar(request)})
         else:
