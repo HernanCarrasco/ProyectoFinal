@@ -13,10 +13,6 @@
 
     <div class="col-lg-6"> 
         <div class="card mb-4">
-            <figure class="mb-4"><img class="img-fluid rounded" src="{{ admin.img.url }}" style="object-fit:contain;
-                width:700px;
-                height:350px;
-                border: solid 1px #CCC" alt="..." /></figure>
             <div class="card-body">
                 <div class="small text-muted">{{ blog.fecha_pub }}</div>
                 <h2 class="card-title">{{ admin.username }}</h2>
@@ -24,6 +20,7 @@
                 <p class="card-text">{{ admin.first_name }} {{ admin.last_name }}</p>
                 <p class="card-text">{{ admin.email }}</p>
                 <a class="btn btn-primary" href="{% url 'ver_usuario' admin.id %}">Ver Usuario →</a>
+                <a class="btn btn-success" href="{% url 'enviar_msg' %}">Enviar Mensaje</a>
             </div>
         </div>
     </div>
@@ -32,8 +29,8 @@
 </div>
 <div class="card mb-4">
     <div class="card-body">
-        <h2 class="card-title">TITULO QUE QUIERAS</h2>
-        <p class="card-text">CONTENIDO DEL ABOUT US {{ admin.img.url }}</p>
+        <h2 class="card-title">Informacion sobre nosotros</h2>
+        <p class="card-text">Los creadores de este sitio web somos Hernan Carrasco e Ignacio Guerrero los cuales nos encargamos de realizar la web completamente por igual encargandonos de todo mediante el uso de aplicaciones de texto como lo es WhatsApp y tambien  reuniendonos por video-llamada por Google Meet.</p>
     </div>
 </div>
         

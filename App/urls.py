@@ -15,6 +15,7 @@ urlpatterns = [
         path("Usuario/<id>", ver_usuario, name="ver_usuario"),
         path("editar_usuario/", editar_usuario, name="editar_usuario"),
         path("agregar_avatar/", agregar_avatar, name="agregar_avatar"),
+        path("get_avatar/", get_avatar, name="get_avatar"),
         path("busqueda_cat/", busqueda_cat, name="busqueda_cat"),
         path("mi_perfil/", mi_perfil, name="mi_perfil"),
         path('usuario/eliminar/<id>', eliminar_usuario, name='eliminar_usuario'),
